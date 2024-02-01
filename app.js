@@ -16,10 +16,12 @@ let minutes = 0
 let hours = 0
 
 function start(){
-    document.getElementById('container').style.backgroundColor = 'blue'
+    btn1.disabled=true
+    btn2.disabled=false
+    changeColor('black')
     timer = setInterval(function (){
             
-        if (seconds === 59 && minutes === 59){
+        if (seconds > 59 && minutes > 59){
             seconds = 0
             minutes = 0
             hours++
@@ -29,15 +31,16 @@ function start(){
         }
 
 
-        else if (seconds === 59){
+        else if (seconds > 59){
             seconds = 0
             seconds_html.innerText = zeroNumber(seconds)
-            minutes++
             minutes_html.innerText = `${zeroNumber(minutes)}:`
+            minutes++
             
         }
-        seconds++
         seconds_html.innerText = zeroNumber(seconds)
+        seconds++
+
     }, 1000)
 }
 
@@ -48,16 +51,27 @@ function zeroNumber(num){
 }
 
 function Stop(){
-    document.getElementById('container').style.backgroundColor = 'red'
+    btn1.disabled=false
+    btn2.disabled=true
+    changeColor('red')
     clearInterval(timer)
 }
 
 function restart(){
-    document.getElementById('container').style.backgroundColor = 'aliceblue'
+    clearInterval(timer)
+    btn1.disabled=false
+    btn2.disabled=false
+    changeColor('black')
     seconds = 0
     minutes = 0
     hours = 0
     seconds_html.innerText = zeroNumber(seconds)
     minutes_html.innerText = `${zeroNumber(minutes)}:`
     hours_html.innerText = `${zeroNumber(hours)}:`
+}
+
+function changeColor(color){
+    document.getElementById('hours').style.color = color
+    document.getElementById('minutes').style.color = color
+    document.getElementById('seconds').style.color = color
 }
